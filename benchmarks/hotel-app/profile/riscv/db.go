@@ -23,6 +23,7 @@ func initializeDatabase(url string) *gocql.Session {
 	session, err := cluster.CreateSession()
 	if err != nil {
 		log.Fatalf("Failed to connect to Cassandra cluster: %v", err)
+		return nil
 	}
 
 	// Create keyspace if not exists

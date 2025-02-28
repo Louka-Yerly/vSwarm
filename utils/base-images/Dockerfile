@@ -61,8 +61,16 @@ LABEL maintainer="https://github.com/vhive-serverless"
 
 
 #---------- MongoDB -----------#
-#FROM  mongo:4.2 AS mongodb
-#LABEL maintainer="https://github.com/vhive-serverless"
+FROM  cloudsuite/cassandra:4.1.0 AS mongodb
+ENV CASSANDRA_ENDPOINT_SNITCH SimpleSnitch
+ENV CASSANDRA_DC dc1
+ENV CASSANDRA_RACK rack1
+
+# Expose Cassandra ports
+EXPOSE 7000 7001 7199 9042 9160
+
+LABEL maintainer="https://github.com/vhive-serverless"
+CMD ["cassandra", "-R", "-f"]
 
 #---------- Memcached -----------#
 FROM  riscv64/memcached:1.6-alpine AS memcached

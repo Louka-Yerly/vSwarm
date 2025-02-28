@@ -32,6 +32,9 @@ func main() {
 
 	// Initialize database ---
 	cassandra_session := initializeDatabase(*database_addr)
+	for cassandra_session == nil {
+		cassandra_session = initializeDatabase(*database_addr)
+	}
 	defer cassandra_session.Close()
 
 	// Initialize Memcached ---
