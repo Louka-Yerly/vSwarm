@@ -36,7 +36,9 @@ LABEL maintainer="https://github.com/vhive-serverless"
 
 
 #---------- python-builder -----------#
-FROM  riscv64/python:3.10-alpine AS python-slim
+FROM ubuntu:24.04 AS python-slim
+RUN apt update || true 
+RUN apt install -y wget libatomic1
 LABEL maintainer="https://github.com/vhive-serverless"
 
 
