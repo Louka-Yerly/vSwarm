@@ -31,7 +31,7 @@ RUN apt-get install git ca-certificates
 COPY ./utils/tracing/go ../../utils/tracing/go
 COPY ./benchmarks/hotel-app/go.mod ./
 COPY ./benchmarks/hotel-app/go.sum ./
-COPY ./benchmarks/hotel-app/$SERVICE ./
+COPY ./benchmarks/hotel-app/$SERVICE/riscv ./
 
 RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -v -o ./server .
