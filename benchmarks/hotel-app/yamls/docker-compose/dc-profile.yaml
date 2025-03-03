@@ -31,7 +31,7 @@ services:
       - /app/server
       - --url=0.0.0.0
       - --port=8083
-      - --db_addr=database:27017
+      - --db_addr=database:5432
       - --memcached_addr=memcached:11211
     # ports:
     # - published: 8083
@@ -45,6 +45,9 @@ services:
   database:
     image: vhiveease/mongodb
     container_name: profile-db
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=hotel_profile
   ## Memcached ##
   memcached:
     image: vhiveease/memcached
@@ -67,6 +70,8 @@ services:
       - --function-endpoint-url=profile
       - --function-endpoint-port=8083
       - --function-name=profile
+      - --generator=random
+      - --verbose
       - --value="2,12,21"
     ports:
         - published: 50000

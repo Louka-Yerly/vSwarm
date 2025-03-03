@@ -23,7 +23,7 @@
 
 .PHONY: all
 
-IMAGES 	  ?= golang-builder golang node-slim python-slim memcached
+IMAGES 	  ?= golang-builder golang node-slim python-slim mongodb memcached
 
 
 #### Build the base images

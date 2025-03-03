@@ -1,19 +1,20 @@
 package main
 
 import (
+	"strings"
 	"flag"
 	"time"
 
 	"github.com/bradfitz/gomemcache/memcache"
-	tracing "github.com/vhive-serverless/vSwarm/utils/tracing/go"
 	log "github.com/sirupsen/logrus"
+	tracing "github.com/vhive-serverless/vSwarm/utils/tracing/go"
 )
 
 var (
 	zipkin        = flag.String("zipkin", "http://localhost:9411/api/v2/spans", "zipkin url")
 	url           = flag.String("url", "0.0.0.0", "Address of the service")
 	port          = flag.Int("port", 8083, "Port of the service")
-	database_addr = flag.String("db_addr", "0.0.0.0:9042", "Address of the Cassandra server")
+	database_addr = flag.String("db_addr", "0.0.0.0:5432", "Address of the data base server")
 	memc_addr     = flag.String("memcached_addr", "0.0.0.0:11211", "Address of the memcached server")
 )
 
@@ -31,11 +32,13 @@ func main() {
 	}
 
 	// Initialize database ---
-	cassandra_session := initializeDatabase(*database_addr)
-	for cassandra_session == nil {
-		cassandra_session = initializeDatabase(*database_addr)
+	splited := strings.Split(*database_addr, ":")
+	db := initializeDatabase(splited[0], splited[1], "postgres", "postgres", "hotel_profile")
+	for db == nil {
+		time.Sleep(5*time.Second)
+		db = initializeDatabase(splited[0], splited[1], "postgres", "postgres", "hotel_profile")
 	}
-	defer cassandra_session.Close()
+	defer db.Close()
 
 	// Initialize Memcached ---
 	memc_client := memcache.New(*memc_addr)
@@ -44,10 +47,10 @@ func main() {
 
 	// Start the gRPC server ---
 	srv := &Server{
-		Port:             *port,
-		IpAddr:           *url,
-		CassandraSession: cassandra_session,
-		MemcClient:       memc_client,
+		Port:       *port,
+		IpAddr:     *url,
+		DB:         db,
+		MemcClient: memc_client,
 	}
 	log.Fatal(srv.Run())
 }
