@@ -82,7 +82,7 @@ func (s *Server) GetProfiles(ctx context.Context, req *pb.Request) (*pb.Result, 
 		} else if err == memcache.ErrCacheMiss {
 			// Memcached miss, query from PostgreSQL
 			log.Printf("memcached miss")
-			hotelProf, err := GetHotelByID(s.DB, hotelID)
+			hotelProf, err := getHotelByID(s.DB, hotelID)
 			if err != nil {
 				log.Printf("Error fetching hotel data from PostgreSQL: %v", err)
 				continue

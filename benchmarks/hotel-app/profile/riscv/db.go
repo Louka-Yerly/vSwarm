@@ -88,245 +88,168 @@ func populateInitialData(db *sql.DB) {
 	if err != nil {
 		log.Print("Error clearing hotels table: ", err)
 	}
-
-	// Initial hotel data
-	hotels := []struct {
-		id          string
-		name        string
-		phoneNumber string
-		description string
-		address     struct {
-			streetNumber string
-			streetName   string
-			city         string
-			state        string
-			country      string
-			postalCode   string
-			lat          float32
-			lon          float32
-		}
-	}{
+	hotels := []*pb.Hotel{
 		{
-			id:          "1",
-			name:        "Clift Hotel",
-			phoneNumber: "(415) 775-4700",
-			description: "A 6-minute walk from Union Square and 4 minutes from a Muni Metro station, this luxury hotel designed by Philippe Starck features an artsy furniture collection in the lobby, including work by Salvador Dali.",
-			address: struct {
-				streetNumber string
-				streetName   string
-				city         string
-				state        string
-				country      string
-				postalCode   string
-				lat          float32
-				lon          float32
-			}{
-				streetNumber: "495",
-				streetName:   "Geary St",
-				city:         "San Francisco",
-				state:        "CA",
-				country:      "United States",
-				postalCode:   "94102",
-				lat:          37.7867,
-				lon:          -122.4112,
+			Id:          "1",
+			Name:        "Clift Hotel",
+			PhoneNumber: "(415) 775-4700",
+			Description: "A 6-minute walk from Union Square and 4 minutes from a Muni Metro station, this luxury hotel designed by Philippe Starck features an artsy furniture collection in the lobby, including work by Salvador Dali.",
+			Address: &pb.Address{
+				StreetNumber: "495",
+				StreetName:   "Geary St",
+				City:         "San Francisco",
+				State:        "CA",
+				Country:      "United States",
+				PostalCode:   "94102",
+				Lat:          37.7867,
+				Lon:          -122.4112,
 			},
 		},
 		{
-			id:          "2",
-			name:        "W San Francisco",
-			phoneNumber: "(415) 777-5300",
-			description: "Less than a block from the Yerba Buena Center for the Arts, this trendy hotel is a 12-minute walk from Union Square.",
-			address: struct {
-				streetNumber string
-				streetName   string
-				city         string
-				state        string
-				country      string
-				postalCode   string
-				lat          float32
-				lon          float32
-			}{
-				streetNumber: "181",
-				streetName:   "3rd St",
-				city:         "San Francisco",
-				state:        "CA",
-				country:      "United States",
-				postalCode:   "94103",
-				lat:          37.7854,
-				lon:          -122.4005,
+			Id:          "2",
+			Name:        "W San Francisco",
+			PhoneNumber: "(415) 777-5300",
+			Description: "Less than a block from the Yerba Buena Center for the Arts, this trendy hotel is a 12-minute walk from Union Square.",
+			Address: &pb.Address{
+				StreetNumber: "181",
+				StreetName:   "3rd St",
+				City:         "San Francisco",
+				State:        "CA",
+				Country:      "United States",
+				PostalCode:   "94103",
+				Lat:          37.7854,
+				Lon:          -122.4005,
 			},
 		},
 		{
-			id:          "3",
-			name:        "Hotel Zetta",
-			phoneNumber: "(415) 543-8555",
-			description: "A 3-minute walk from the Powell Street cable-car turnaround and BART rail station, this hip hotel 9 minutes from Union Square combines high-tech lodging with artsy touches.",
-			address: struct {
-				streetNumber string
-				streetName   string
-				city         string
-				state        string
-				country      string
-				postalCode   string
-				lat          float32
-				lon          float32
-			}{
-				streetNumber: "55",
-				streetName:   "5th St",
-				city:         "San Francisco",
-				state:        "CA",
-				country:      "United States",
-				postalCode:   "94103",
-				lat:          37.7834,
-				lon:          -122.4071,
+			Id:          "3",
+			Name:        "Hotel Zetta",
+			PhoneNumber: "(415) 543-8555",
+			Description: "A 3-minute walk from the Powell Street cable-car turnaround and BART rail station, this hip hotel 9 minutes from Union Square combines high-tech lodging with artsy touches.",
+			Address: &pb.Address{
+				StreetNumber: "55",
+				StreetName:   "5th St",
+				City:         "San Francisco",
+				State:        "CA",
+				Country:      "United States",
+				PostalCode:   "94103",
+				Lat:          37.7834,
+				Lon:          -122.4071,
 			},
 		},
 		{
-			id:          "4",
-			name:        "Hotel Vitale",
-			phoneNumber: "(415) 278-3700",
-			description: "This waterfront hotel with Bay Bridge views is 3 blocks from the Financial District and a 4-minute walk from the Ferry Building.",
-			address: struct {
-				streetNumber string
-				streetName   string
-				city         string
-				state        string
-				country      string
-				postalCode   string
-				lat          float32
-				lon          float32
-			}{
-				streetNumber: "8",
-				streetName:   "Mission St",
-				city:         "San Francisco",
-				state:        "CA",
-				country:      "United States",
-				postalCode:   "94105",
-				lat:          37.7936,
-				lon:          -122.3930,
+			Id:          "4",
+			Name:        "Hotel Vitale",
+			PhoneNumber: "(415) 278-3700",
+			Description: "This waterfront hotel with Bay Bridge views is 3 blocks from the Financial District and a 4-minute walk from the Ferry Building.",
+			Address: &pb.Address{
+				StreetNumber: "8",
+				StreetName:   "Mission St",
+				City:         "San Francisco",
+				State:        "CA",
+				Country:      "United States",
+				PostalCode:   "94105",
+				Lat:          37.7936,
+				Lon:          -122.3930,
 			},
 		},
 		{
-			id:          "5",
-			name:        "Phoenix Hotel",
-			phoneNumber: "(415) 776-1380",
-			description: "Located in the Tenderloin neighborhood, a 10-minute walk from a BART rail station, this retro motor lodge has hosted many rock musicians and other celebrities since the 1950s. It's a 4-minute walk from the historic Great American Music Hall nightclub.",
-			address: struct {
-				streetNumber string
-				streetName   string
-				city         string
-				state        string
-				country      string
-				postalCode   string
-				lat          float32
-				lon          float32
-			}{
-				streetNumber: "601",
-				streetName:   "Eddy St",
-				city:         "San Francisco",
-				state:        "CA",
-				country:      "United States",
-				postalCode:   "94109",
-				lat:          37.7831,
-				lon:          -122.4181,
+			Id:          "5",
+			Name:        "Phoenix Hotel",
+			PhoneNumber: "(415) 776-1380",
+			Description: "Located in the Tenderloin neighborhood, a 10-minute walk from a BART rail station, this retro motor lodge has hosted many rock musicians and other celebrities since the 1950s. It's a 4-minute walk from the historic Great American Music Hall nightclub.",
+			Address: &pb.Address{
+				StreetNumber: "601",
+				StreetName:   "Eddy St",
+				City:         "San Francisco",
+				State:        "CA",
+				Country:      "United States",
+				PostalCode:   "94109",
+				Lat:          37.7831,
+				Lon:          -122.4181,
 			},
 		},
 		{
-			id:          "6",
-			name:        "St. Regis San Francisco",
-			phoneNumber: "(415) 284-4000",
-			description: "St. Regis Museum Tower is a 42-story, 484 ft skyscraper in the South of Market district of San Francisco, California, adjacent to Yerba Buena Gardens, Moscone Center, PacBell Building and the San Francisco Museum of Modern Art.",
-			address: struct {
-				streetNumber string
-				streetName   string
-				city         string
-				state        string
-				country      string
-				postalCode   string
-				lat          float32
-				lon          float32
-			}{
-				streetNumber: "125",
-				streetName:   "3rd St",
-				city:         "San Francisco",
-				state:        "CA",
-				country:      "United States",
-				postalCode:   "94109",
-				lat:          37.7863,
-				lon:          -122.4015,
+			Id:          "6",
+			Name:        "St. Regis San Francisco",
+			PhoneNumber: "(415) 284-4000",
+			Description: "St. Regis Museum Tower is a 42-story, 484 ft skyscraper in the South of Market district of San Francisco, California, adjacent to Yerba Buena Gardens, Moscone Center, PacBell Building and the San Francisco Museum of Modern Art.",
+			Address: &pb.Address{
+				StreetNumber: "125",
+				StreetName:   "3rd St",
+				City:         "San Francisco",
+				State:        "CA",
+				Country:      "United States",
+				PostalCode:   "94109",
+				Lat:          37.7863,
+				Lon:          -122.4015,
 			},
 		},
 	}
 
 	// Insert initial hotels
 	for _, hotel := range hotels {
-		count := 0
-		err := db.QueryRow("SELECT COUNT(*) FROM hotels WHERE id = $1", hotel.id).Scan(&count)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		if count == 0 {
-			// Insert hotel
-			_, err = db.Exec(`
-				INSERT INTO hotels (id, name, phone_number, description) 
-				VALUES ($1, $2, $3, $4)
-			`, hotel.id, hotel.name, hotel.phoneNumber, hotel.description)
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			// Insert address
-			_, err = db.Exec(`
-				INSERT INTO addresses (hotel_id, street_number, street_name, city, state, country, postal_code, lat, lon) 
-				VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-			`, hotel.id, hotel.address.streetNumber, hotel.address.streetName, hotel.address.city,
-				hotel.address.state, hotel.address.country, hotel.address.postalCode, hotel.address.lat, hotel.address.lon)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
+		insertHotel(db, hotel)
 	}
 
 	// Add additional hotels (7-80)
 	for i := 7; i <= 80; i++ {
 		hotelID := strconv.Itoa(i)
 
-		count := 0
-		err := db.QueryRow("SELECT COUNT(*) FROM hotels WHERE id = $1", hotelID).Scan(&count)
-		if err != nil {
-			log.Fatal(err)
+		hotel := pb.Hotel{
+			Id:          hotelID,
+			Name:        "St. Regis San Francisco",
+			PhoneNumber: "(415) 284-40" + hotelID,
+			Description: "St. Regis Museum Tower is a 42-story, 484 ft skyscraper in the South of Market district of San Francisco, California, adjacent to Yerba Buena Gardens, Moscone Center, PacBell Building and the San Francisco Museum of Modern Art.",
+			Address: &pb.Address{
+				StreetNumber: "125",
+				StreetName:   "3rd St",
+				City:         "San Francisco",
+				State:        "CA",
+				Country:      "United States",
+				PostalCode:   "94109",
+				Lat:          37.7835 + float32(i)/500.0*3,
+				Lon:          -122.41 + float32(i)/500.0*4,
+			},
 		}
 
-		if count == 0 {
-			phoneNum := "(415) 284-40" + hotelID
-			lat := 37.7835 + float32(i)/500.0*3
-			lon := -122.41 + float32(i)/500.0*4
+		insertHotel(db, &hotel)
+	}
+}
 
-			// Insert hotel
-			_, err = db.Exec(`
-				INSERT INTO hotels (id, name, phone_number, description) 
-				VALUES ($1, $2, $3, $4)
-			`, hotelID, "St. Regis San Francisco", phoneNum,
-				"St. Regis Museum Tower is a 42-story, 484 ft skyscraper in the South of Market district of San Francisco, California, adjacent to Yerba Buena Gardens, Moscone Center, PacBell Building and the San Francisco Museum of Modern Art.")
-			if err != nil {
-				log.Fatal(err)
-			}
+func insertHotel(db *sql.DB, hotel *pb.Hotel) {
+	count := 0
+	err := db.QueryRow("SELECT COUNT(*) FROM hotels WHERE id = $1", hotel.Id).Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-			// Insert address
-			_, err = db.Exec(`
-				INSERT INTO addresses (hotel_id, street_number, street_name, city, state, country, postal_code, lat, lon) 
-				VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-			`, hotelID, "125", "3rd St", "San Francisco", "CA", "United States", "94109", lat, lon)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
+	if count != 0 {
+		log.Fatal("Hotel id alread exists")
+	}
+
+	// Insert hotel
+	_, err = db.Exec(`
+		INSERT INTO hotels (id, name, phone_number, description) 
+		VALUES ($1, $2, $3, $4)
+	`, hotel.Id, hotel.Name, hotel.PhoneNumber, hotel.Description)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Insert address
+	_, err = db.Exec(`
+		INSERT INTO addresses (hotel_id, street_number, street_name, city, state, country, postal_code, lat, lon) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+	`, hotel.Id, hotel.Address.StreetNumber, hotel.Address.StreetName, hotel.Address.City,
+		hotel.Address.State, hotel.Address.Country, hotel.Address.PostalCode, hotel.Address.Lat, hotel.Address.Lon)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
 // GetHotelByID fetches a hotel by its ID
-func GetHotelByID(db *sql.DB, id string) (*pb.Hotel, error) {
+func getHotelByID(db *sql.DB, id string) (*pb.Hotel, error) {
 	hotel := &pb.Hotel{
 		Address: &pb.Address{},
 	}
