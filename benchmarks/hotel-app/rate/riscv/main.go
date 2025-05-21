@@ -56,10 +56,10 @@ func main() {
 
 	// Initialize database ---
 	splited := strings.Split(*database_addr, ":")
-	db := initializeDatabase(splited[0], splited[1], "postgres", "postgres", "hotel_profile")
+	db := initializeDatabase(splited[0], splited[1], "postgres", "postgres", "hotel_rate")
 	for db == nil {
 		time.Sleep(5 * time.Second)
-		db = initializeDatabase(splited[0], splited[1], "postgres", "postgres", "hotel_profile")
+		db = initializeDatabase(splited[0], splited[1], "postgres", "postgres", "hotel_rate")
 	}
 	defer db.Close()
 
