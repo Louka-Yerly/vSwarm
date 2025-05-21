@@ -43,7 +43,7 @@ services:
 
   ## Database ##
   database:
-    image: vhiveease/mongodb
+    image: vhiveease/postgres
     container_name: profile-db
     environment:
       - POSTGRES_PASSWORD=postgres
