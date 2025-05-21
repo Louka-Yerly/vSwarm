@@ -189,7 +189,7 @@ func populateInitialData(db *sql.DB) {
 
 func insertRatePlan(db *sql.DB, rate_plan *pb.RatePlan) {
 	count := 0
-	err := db.QueryRow("SELECT COUNT(*) FROM rate_plans WHERE id = $1", rate_plan.HotelId).Scan(&count)
+	err := db.QueryRow("SELECT COUNT(*) FROM rate_plans WHERE hotel_id = $1", rate_plan.HotelId).Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}
