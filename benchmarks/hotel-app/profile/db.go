@@ -153,7 +153,7 @@ func initializeDatabase(url string) *mgo.Session {
 			Id:          "5",
 			Name:        "Phoenix Hotel",
 			PhoneNumber: "(415) 776-1380",
-			Description: "Located in the Tenderloin neighborhood, a 10-minute walk from a BART rail station, this retro motor lodge has hosted many rock musicians and other celebrities since the 1950s. It’s a 4-minute walk from the historic Great American Music Hall nightclub.",
+			Description: "Located in the Tenderloin neighborhood, a 10-minute walk from a BART rail station, this retro motor lodge has hosted many rock musicians and other celebrities since the 1950s. It's a 4-minute walk from the historic Great American Music Hall nightclub.",
 			Address: &pb.Address{
 				StreetNumber: "601",
 				StreetName:   "Eddy St",
