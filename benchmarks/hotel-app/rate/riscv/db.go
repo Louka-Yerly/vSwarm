@@ -28,6 +28,7 @@ import (
 	"log"
 	"strconv"
 
+	_ "github.com/lib/pq"
 	pb "github.com/vhive-serverless/vSwarm-proto/proto/hotel_reserv/rate"
 )
 
@@ -221,20 +222,20 @@ func getHotelByID(db *sql.DB, id string) ([]*pb.RatePlan, error) {
 		WHERE hotel_id = $1
 	`, id)
 	if err != nil {
-        return nil, err
-    }
-	
+		return nil, err
+	}
+
 	for rows.Next() {
-        rate_plan := &pb.RatePlan{}
-        if err := rows.Scan(
+		rate_plan := &pb.RatePlan{}
+		if err := rows.Scan(
 			&rate_plan.HotelId, &rate_plan.Code, &rate_plan.InDate, &rate_plan.OutDate, &rate_plan.RoomType.Code, &rate_plan.RoomType.RoomDescription, &rate_plan.RoomType.BookableRate, &rate_plan.RoomType.TotalRate, &rate_plan.RoomType.TotalRateInclusive); err != nil {
-            return rate_plans, err
-        }
-        rate_plans = append(rate_plans, rate_plan)
-    }
+			return rate_plans, err
+		}
+		rate_plans = append(rate_plans, rate_plan)
+	}
 
 	if err = rows.Err(); err != nil {
-        return rate_plans, err
-    }
-    return rate_plans, nil
+		return rate_plans, err
+	}
+	return rate_plans, nil
 }
