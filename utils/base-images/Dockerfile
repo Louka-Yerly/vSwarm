@@ -61,7 +61,7 @@ LABEL maintainer="https://github.com/vhive-serverless"
 
 
 #---------- MongoDB -----------#
-FROM postgres:17.4-alpine3.21 AS mongodb
+FROM postgres:17.4-alpine3.21 AS postgres
 LABEL maintainer="https://github.com/vhive-serverless"
 
 #---------- Memcached -----------#
