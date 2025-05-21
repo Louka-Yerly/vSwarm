@@ -58,6 +58,7 @@ services:
       - --function-endpoint-url=geo
       - --function-endpoint-port=8083
       - --function-name=geo
+      - --generator=random
     ports:
         - published: 50000
           target: 50000
