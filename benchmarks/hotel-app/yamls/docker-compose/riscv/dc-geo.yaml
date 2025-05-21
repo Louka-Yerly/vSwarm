@@ -45,7 +45,7 @@ services:
     container_name: geo-db
     environment:
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=hotel_profile
+      - POSTGRES_DB=hotel_geo
 
 
 
