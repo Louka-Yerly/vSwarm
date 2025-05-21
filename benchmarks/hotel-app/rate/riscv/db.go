@@ -144,7 +144,9 @@ func populateInitialData(db *sql.DB) {
 	}
 
 	// add up to 80 hotels
-	item := pb.RatePlan{}
+	item := &pb.RatePlan{
+		RoomType: &pb.RoomType{},
+	}
 
 	for i := 7; i <= 80; i++ {
 		if i%3 == 0 {
@@ -182,23 +184,13 @@ func populateInitialData(db *sql.DB) {
 			item.RoomType.TotalRate = rate
 			item.RoomType.TotalRateInclusive = rate_inc
 
-			insertRatePlan(db, &item)
+			insertRatePlan(db, item)
 		}
 	}
 }
 
 func insertRatePlan(db *sql.DB, rate_plan *pb.RatePlan) {
-	count := 0
-	err := db.QueryRow("SELECT COUNT(*) FROM rate_plans WHERE hotel_id = $1", rate_plan.HotelId).Scan(&count)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if count != 0 {
-		log.Fatal("Hotel id alread exists")
-	}
-
-	_, err = db.Exec(`
+	_, err := db.Exec(`
 		INSERT INTO rate_plans (
 			hotel_id, code, in_date, out_date, 
 			room_type_code, room_description, 
@@ -221,12 +213,16 @@ func getHotelByID(db *sql.DB, id string) ([]*pb.RatePlan, error) {
 		FROM rate_plans
 		WHERE hotel_id = $1
 	`, id)
+	defer rows.Close()
+
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
-		rate_plan := &pb.RatePlan{}
+		rate_plan := &pb.RatePlan{
+			RoomType: &pb.RoomType{},
+		}
 		if err := rows.Scan(
 			&rate_plan.HotelId, &rate_plan.Code, &rate_plan.InDate, &rate_plan.OutDate, &rate_plan.RoomType.Code, &rate_plan.RoomType.RoomDescription, &rate_plan.RoomType.BookableRate, &rate_plan.RoomType.TotalRate, &rate_plan.RoomType.TotalRateInclusive); err != nil {
 			return rate_plans, err
