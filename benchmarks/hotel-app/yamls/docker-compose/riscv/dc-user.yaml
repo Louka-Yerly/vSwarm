@@ -31,7 +31,7 @@ services:
       - /app/server
       - --url=0.0.0.0
       - --port=8083
-      - --db_addr=geo-db:5432
+      - --db_addr=user-db:5432
     ports:
     - published: 8083
       target: 8083
