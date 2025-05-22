@@ -49,6 +49,7 @@ services:
       - --port=8083
       - --geoaddr=geo:8084
       - --rateaddr=rate:8085
+      - --verbose
     ports:
       - "8083:8083"
     depends_on:
