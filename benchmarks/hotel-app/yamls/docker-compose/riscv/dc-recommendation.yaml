@@ -61,7 +61,7 @@ services:
       - --function-name=recommendation
       - --generator=random
       - --verbose
-      # - --value="dis"
+      - --value="price"
     ports:
         - published: 50000
           target: 50000
