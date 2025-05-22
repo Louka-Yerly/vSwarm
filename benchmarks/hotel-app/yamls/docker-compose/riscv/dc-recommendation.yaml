@@ -59,7 +59,9 @@ services:
       - --function-endpoint-url=recommendation
       - --function-endpoint-port=8083
       - --function-name=recommendation
-      - --value="dis"
+      - --generator=random
+      - --verbose
+      # - --value="dis"
     ports:
         - published: 50000
           target: 50000
