@@ -32,6 +32,7 @@ services:
       - --function-endpoint-url=search
       - --function-endpoint-port=8083
       - --function-name=search
+      - --verbose
     ports:
         - published: 50000
           target: 50000
@@ -49,7 +50,6 @@ services:
       - --port=8083
       - --geoaddr=geo:8084
       - --rateaddr=rate:8085
-      - --verbose
     ports:
       - "8083:8083"
     depends_on:
