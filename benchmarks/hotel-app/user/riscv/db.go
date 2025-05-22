@@ -68,6 +68,7 @@ func createTables(db *sql.DB) {
 			id SERIAL PRIMARY KEY,
 			username TEXT UNIQUE NOT NULL,
 			password TEXT NOT NULL
+		)
 	`)
 	if err != nil {
 		log.Fatal(err)
