@@ -22,49 +22,29 @@
 
 
 #---------- golang-builder -----------#
-FROM ubuntu:24.04 AS golang-builder
-RUN apt update || true 
-RUN apt install -y wget git ca-certificates
-RUN cd /tmp && \
-    wget https://go.dev/dl/go1.24.0.linux-riscv64.tar.gz; \
-    tar -C /usr/local -xzf /tmp/go1.24.0.linux-riscv64.tar.gz
-ENV PATH /usr/local/go/bin:$PATH
+FROM golang:1.21 AS golang-builder
 LABEL maintainer="https://github.com/vhive-serverless"
 
-FROM golang:1.24-alpine AS golang
+FROM golang:1.21-alpine AS golang
 LABEL maintainer="https://github.com/vhive-serverless"
 
 
 #---------- python-builder -----------#
-FROM ubuntu:24.04 AS python-slim
-RUN apt update || true 
-RUN apt install -y wget libatomic1
+FROM  python:3.12-slim AS python-slim
 LABEL maintainer="https://github.com/vhive-serverless"
 
 
 #---------- nodejs-builder -----------#
-FROM ubuntu:24.04 AS node-slim
-RUN apt update || true
-RUN apt install -y wget libatomic1
-RUN cd /tmp && \
-    wget https://unofficial-builds.nodejs.org/download/release/v21.7.2/node-v21.7.2-linux-riscv64.tar.gz && \
-    tar -xzf node-v21.7.2-linux-riscv64.tar.gz && \
-    mv node-v21.7.2-linux-riscv64 /opt
-
-COPY nodejs/docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD [ "node" ]
-ENV PATH /opt/node-v21.7.2-linux-riscv64/bin:$PATH    
+FROM  node:18.6-slim AS node-slim
 LABEL maintainer="https://github.com/vhive-serverless"
 
 
 
 #---------- MongoDB -----------#
-FROM postgres:17.4-alpine3.21 AS postgres
+FROM  mongo:4.2 AS mongodb
 LABEL maintainer="https://github.com/vhive-serverless"
 
 #---------- Memcached -----------#
-FROM  memcached:1.6-alpine AS memcached
+FROM  memcached:1.6 AS memcached
 LABEL maintainer="https://github.com/vhive-serverless"
 
