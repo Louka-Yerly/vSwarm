@@ -113,8 +113,8 @@ func (s *Server) CheckUser(ctx context.Context, req *pb.Request) (*pb.Result, er
 		password := s.lookupCache(req.Username)
 		res.Correct = pass == password
 	} else {
-		user, _ := s.lookUpDB(req.Username)
-		res.Correct = pass == user.Password
+		user, found := s.lookUpDB(req.Username)
+		res.Correct = found && pass == user.Password
 	}
 
 	fmt.Printf(" >> pass: %t\n", res.Correct)
@@ -148,11 +148,11 @@ func (s *Server) lookupCache(username string) string {
 	return res
 }
 
-func (s *Server) lookUpDB(username string) (User, bool) {
+func (s *Server) lookUpDB(username string) (*User, bool) {
 	user, err := getUser(s.DB, username)
 	if err != nil {
 		log.Println("Failed get user: ", err)
-		return *user, false
+		return user, false
 	}
-	return *user, true
+	return user, true
 }
