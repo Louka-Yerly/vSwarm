@@ -64,7 +64,7 @@ services:
       - /app/server
       - --url=0.0.0.0
       - --port=8084
-      - --db_addr=geo-db:27017
+      - --db_addr=geo-db:5432
     depends_on:
       - geo-db
 
@@ -85,7 +85,7 @@ services:
       - /app/server
       - --url=0.0.0.0
       - --port=8085
-      - --db_addr=rate-db:27017
+      - --db_addr=rate-db:5432
       - --memcached_addr=rate-mmc:11211
     depends_on:
       - rate-db
