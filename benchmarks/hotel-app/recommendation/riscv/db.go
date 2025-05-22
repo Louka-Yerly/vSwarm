@@ -29,7 +29,6 @@ import (
 	"strconv"
 
 	_ "github.com/lib/pq"
-	"gopkg.in/mgo.v2/bson"
 )
 
 type HotelDB struct {
@@ -207,7 +206,7 @@ func insertHotel(db *sql.DB, hotel *HotelDB) {
 func getHotels(db *sql.DB) ([]*Hotel, error) {
 	hotels := []*Hotel{}
 	rows, err := db.Query(`
-		SELECT id, hotel_id, lat, lon, rate, price
+		SELECT hotel_id, lat, lon, rate, price
 		FROM hotels
 	`)
 	defer rows.Close()
@@ -218,12 +217,10 @@ func getHotels(db *sql.DB) ([]*Hotel, error) {
 
 	for rows.Next() {
 		hotel := &Hotel{}
-		var id int64
 		if err := rows.Scan(
-			&id, &hotel.HId, &hotel.HLat, &hotel.HLon, &hotel.HRate, &hotel.HPrice); err != nil {
+			&hotel.HId, &hotel.HLat, &hotel.HLon, &hotel.HRate, &hotel.HPrice); err != nil {
 			return hotels, err
 		}
-		hotel.ID = bson.ObjectIdHex(strconv.FormatInt(id, 10))
 		hotels = append(hotels, hotel)
 	}
 
