@@ -24,17 +24,17 @@ version: "3.9"
 services:
 
   ## Function ###
-  recommendation:
-    image: vhiveease/hotel-app-recommendation:latest
-    container_name: recommendation
+  user:
+    image: vhiveease/hotel-app-user:latest
+    container_name: user
     entrypoint:
       - /app/server
       - --url=0.0.0.0
       - --port=8083
-      - --db_addr=database:5432
-    # ports:
-    # - published: 8083
-    #   target: 8083
+      - --db_addr=geo-db:5432
+    ports:
+    - published: 8083
+      target: 8083
     depends_on:
       - database
 
@@ -42,10 +42,10 @@ services:
   ## Data base ##
   database:
     image: vhiveease/postgres
-    container_name: recommendation-db
+    container_name: user-db
     environment:
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=hotel_recommendation
+      - POSTGRES_DB=hotel_user
 
 
 
@@ -55,14 +55,12 @@ services:
     entrypoint:
       - /app/server
       - --addr=0.0.0.0:50000
-      - --function-endpoint-url=recommendation
+      - --function-endpoint-url=user
       - --function-endpoint-port=8083
-      - --function-name=recommendation
-      - --generator=random
-      - --verbose
-      - --value="dis"
+      - --function-name=user
+      - --value=hello
     ports:
         - published: 50000
           target: 50000
     depends_on:
-      - recommendation
+      - user
