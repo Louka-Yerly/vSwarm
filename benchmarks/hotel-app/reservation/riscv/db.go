@@ -74,9 +74,9 @@ func createTables(db *sql.DB) {
 	_, err = db.Exec(`
 		CREATE TABLE IF NOT EXISTS reservations (
 			hotel_id TEXT PRIMARY KEY REFERENCES hotels(hotel_id) ON DELETE CASCADE,
-			customername TEXT NOT NULL
-			indate TEXT NOT NULL
-			outdate TEXT NOT NULL
+			customername TEXT NOT NULL,
+			indate TEXT NOT NULL,
+			outdate TEXT NOT NULL,
 			number INTEGER NOT NULL
 		)
 	`)
@@ -90,32 +90,32 @@ func populateInitialData(db *sql.DB) {
 
 	res := &Reservation{"4", "Alice", "2015-04-09", "2015-04-10", 1}
 
-	insertReservation(db, res);
+	insertReservation(db, res)
 
 	numbers := []*Number{
 		{
-			HotelId:    "1",
-			Number: 200,
+			HotelId: "1",
+			Number:  200,
 		},
 		{
-			HotelId:    "2",
-			Number: 10,
+			HotelId: "2",
+			Number:  10,
 		},
 		{
-			HotelId:    "3",
-			Number: 200,
+			HotelId: "3",
+			Number:  200,
 		},
 		{
-			HotelId:    "4",
-			Number: 200,
+			HotelId: "4",
+			Number:  200,
 		},
 		{
-			HotelId:    "5",
-			Number: 200,
+			HotelId: "5",
+			Number:  200,
 		},
 		{
-			HotelId:    "6",
-			Number: 200,
+			HotelId: "6",
+			Number:  200,
 		},
 	}
 
@@ -178,12 +178,11 @@ func insertReservation(db *sql.DB, reservation *Reservation) {
 		INSERT INTO reservations (hotel_id, customername, indate, outdate, number) 
 		VALUES ($1, $2)
 	`, reservation.HotelId, reservation.CustomerName,
-	reservation.InDate, reservation.OutDate, reservation.Number)
+		reservation.InDate, reservation.OutDate, reservation.Number)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
-
 
 func getReservations(db *sql.DB, reservation *Reservation) ([]*Reservation, error) {
 	reservations := []*Reservation{}
