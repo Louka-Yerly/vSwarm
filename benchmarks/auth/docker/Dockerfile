@@ -83,7 +83,7 @@ RUN npm set progress=false && npm config set depth 0
 RUN npm install --only=production
 
 # Second stage (Runner):
-FROM node:stretch-slim AS authNodeJS
+FROM vhiveease/node-slim:latest AS authNodeJS
 WORKDIR /app/
 COPY --from=authNodeJSBuild /app/ .
 
