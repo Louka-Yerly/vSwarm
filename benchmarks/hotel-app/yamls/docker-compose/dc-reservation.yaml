@@ -65,9 +65,7 @@ services:
       - --function-endpoint-url=reservation
       - --function-endpoint-port=8083
       - --function-name=reservation
-      - --function-method=MakeReservation
-      - --generator=random
-      - --verbose
+      - --function-method=CheckAvailability
     ports:
         - published: 50000
           target: 50000
