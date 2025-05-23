@@ -31,6 +31,11 @@ currencyservice-image: ./currencyservice/Dockerfile
 	--tag $(DOCKER_HUB_ACCOUNT)/onlineshop-currencyservice:latest \
 	-f ./currencyservice/Dockerfile \
 	$(ROOT)/currencyservice/
+currencyservice-image-riscv: ./currencyservice/Dockerfile.riscv
+	DOCKER_BUILDKIT=1 docker build \
+	--tag $(DOCKER_HUB_ACCOUNT)/onlineshop-currencyservice:latest \
+	-f ./currencyservice/Dockerfile.riscv \
+	$(ROOT)/currencyservice/
 
 emailservice-image: ./emailservice/Dockerfile
 	DOCKER_BUILDKIT=1 docker build \
