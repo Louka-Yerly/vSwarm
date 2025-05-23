@@ -73,11 +73,13 @@ func createTables(db *sql.DB) {
 
 	_, err = db.Exec(`
 		CREATE TABLE IF NOT EXISTS reservations (
-			hotel_id TEXT PRIMARY KEY REFERENCES numbers(hotel_id) ON DELETE CASCADE,
+			order_id SERIAL PRIMARY KEY,
+			hotel_id TEXT NOT NULL,
 			customername TEXT NOT NULL,
 			indate TEXT NOT NULL,
 			outdate TEXT NOT NULL,
-			number INTEGER NOT NULL
+			number INTEGER NOT NULL,
+			FOREIGN KEY (hotel_id) REFERENCES numbers(hotel_id) ON DELETE CASCADE
 		)
 	`)
 
