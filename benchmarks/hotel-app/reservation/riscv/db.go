@@ -172,7 +172,8 @@ func insertReservation(db *sql.DB, reservation *Reservation) {
 	}
 
 	if count != 0 {
-		log.Fatal("Reservation id alread exists")
+		fmt.Printf("Reservation alread exists")
+		return
 	}
 
 	// Insert reservation
