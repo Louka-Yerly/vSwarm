@@ -49,6 +49,12 @@ paymentservice-image: ./paymentservice/Dockerfile
 	-f ./paymentservice/Dockerfile \
 	$(ROOT)/paymentservice/
 
+paymentservice-image-riscv: ./paymentservice/Dockerfile.riscv
+	DOCKER_BUILDKIT=1 docker build \
+	--tag $(DOCKER_HUB_ACCOUNT)/onlineshop-paymentservice:latest \
+	-f ./paymentservice/Dockerfile.riscv \
+	$(ROOT)/paymentservice/
+
 productcatalogservice-image: ./productcatalogservice/Dockerfile
 	DOCKER_BUILDKIT=1 docker build \
 	--tag $(DOCKER_HUB_ACCOUNT)/onlineshop-productcatalogservice:latest \
