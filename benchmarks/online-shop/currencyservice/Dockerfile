@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:18-alpine as base
+FROM vhiveease/node-slim  as base
 
 FROM base as builder
 
