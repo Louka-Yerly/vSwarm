@@ -88,10 +88,6 @@ func createTables(db *sql.DB) {
 
 func populateInitialData(db *sql.DB) {
 
-	res := &Reservation{"4", "Alice", "2015-04-09", "2015-04-10", 1}
-
-	insertReservation(db, res)
-
 	numbers := []*Number{
 		{
 			HotelId: "1",
@@ -133,6 +129,10 @@ func populateInitialData(db *sql.DB) {
 		}
 		insertNumber(db, &Number{hotel_id, room_num})
 	}
+
+	res := &Reservation{"4", "Alice", "2015-04-09", "2015-04-10", 1}
+
+	insertReservation(db, res)
 
 }
 
