@@ -59,7 +59,7 @@ RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -v -o ./server server.go
 
 # Second stage (Runner):
-FROM scratch as fibonacciGo
+FROM vhiveease/golang-builder:latest as fibonacciGo
 WORKDIR /app/
 COPY --from=fibonacciGoBuilder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=fibonacciGoBuilder /app/app/server .
