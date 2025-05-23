@@ -190,7 +190,7 @@ func getReservations(db *sql.DB, reservation *Reservation) ([]*Reservation, erro
 	rows, err := db.Query(`
 		SELECT hotel_id, customername, indate, outdate, number
 		FROM reservations
-		WHERE hotel_id = $1 AND inddate = $2 AND outdate = $3
+		WHERE hotel_id = $1 AND indate = $2 AND outdate = $3
 	`, reservation.HotelId, reservation.InDate, reservation.OutDate)
 
 	defer rows.Close()
