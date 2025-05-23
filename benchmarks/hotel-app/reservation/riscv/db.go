@@ -73,7 +73,7 @@ func createTables(db *sql.DB) {
 
 	_, err = db.Exec(`
 		CREATE TABLE IF NOT EXISTS reservations (
-			hotel_id TEXT PRIMARY KEY REFERENCES hotels(hotel_id) ON DELETE CASCADE,
+			hotel_id TEXT PRIMARY KEY REFERENCES numbers(hotel_id) ON DELETE CASCADE,
 			customername TEXT NOT NULL,
 			indate TEXT NOT NULL,
 			outdate TEXT NOT NULL,
@@ -162,7 +162,7 @@ func insertReservation(db *sql.DB, reservation *Reservation) {
 	err := db.QueryRow(`
 	SELECT COUNT(*)
 	FROM reservations
-	WHERE hotel_id = $1 AND customername = $2 AND indate = $3 AND outdate = $4 AND number = $5,
+	WHERE hotel_id = $1 AND customername = $2 AND indate = $3 AND outdate = $4 AND number = $5
 	`, reservation.HotelId, reservation.CustomerName,
 		reservation.InDate, reservation.OutDate, reservation.Number).Scan(&count)
 	if err != nil {
@@ -176,7 +176,7 @@ func insertReservation(db *sql.DB, reservation *Reservation) {
 	// Insert reservation
 	_, err = db.Exec(`
 		INSERT INTO reservations (hotel_id, customername, indate, outdate, number) 
-		VALUES ($1, $2)
+		VALUES ($1, $2, $3, $4, $5)
 	`, reservation.HotelId, reservation.CustomerName,
 		reservation.InDate, reservation.OutDate, reservation.Number)
 	if err != nil {
