@@ -19,12 +19,11 @@ RUN apt install -y make g++ python3
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+RUN mv package-riscv.json package.json
 
 RUN npm install --only=production
 
 COPY . .
-
-RUN mv package-riscv.json package.json
 
 EXPOSE 7000
 
