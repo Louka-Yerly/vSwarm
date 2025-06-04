@@ -26,7 +26,6 @@
 FROM vhiveease/python-slim:latest as aesPythonBuilder
 WORKDIR /py
 COPY ./benchmarks/aes/python/requirements/common_requirements.txt.riscv ./requirements.txt
-RUN pip3 install python3-grpcio
 RUN pip3 install --user -r requirements.txt
 COPY ./utils/tracing/python/tracing.py ./
 COPY ./benchmarks/aes/python/server.py ./
