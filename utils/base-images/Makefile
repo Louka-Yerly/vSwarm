@@ -25,11 +25,11 @@
 
 ARCH := default
 
-DOCKERFILE := Dockerfile
+DOCKERFILE = Dockerfile
 IMAGES     ?= golang-builder golang node-slim python-slim mongodb memcached
 
 ifeq ($(ARCH), riscv)
-	DOCKERFILE := Dockerfile.riscv
+	DOCKERFILE = Dockerfile.riscv
 	IMAGES     ?= golang-builder golang node-slim python-slim postgres memcached
 endif
 
