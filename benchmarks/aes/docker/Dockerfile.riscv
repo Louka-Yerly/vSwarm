@@ -38,7 +38,7 @@ COPY --from=aesPythonBuilder /root/.local /root/.local
 COPY --from=aesPythonBuilder /py /app
 WORKDIR /app
 # ENV PATH=/root/.local/bin:$PATH
-ENTRYPOINT [ "python", "/app/server.py" ]
+ENTRYPOINT [ "python3", "/app/server.py" ]
 
 
 
