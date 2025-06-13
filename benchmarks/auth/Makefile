@@ -27,6 +27,14 @@ auth-python-image: docker/Dockerfile python/server.py
 	$(ROOT) --load
 
 
+auth-python-image-riscv: docker/Dockerfile.riscv python/server.py
+	DOCKER_BUILDKIT=1 docker buildx build \
+	--tag $(DOCKER_HUB_ACCOUNT)/auth-python:latest \
+	--target authPython \
+	-f docker/Dockerfile.riscv \
+	$(ROOT) --load
+
+
 auth-nodejs-image: docker/Dockerfile nodejs/server.js
 	DOCKER_BUILDKIT=1 docker buildx build \
 	--tag $(DOCKER_HUB_ACCOUNT)/auth-nodejs:latest \

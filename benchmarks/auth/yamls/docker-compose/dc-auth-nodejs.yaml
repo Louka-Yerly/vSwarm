@@ -41,6 +41,7 @@ services:
       - --function-endpoint-url=auth-nodejs
       - --function-endpoint-port=50051
       - --function-name=auth-nodejs
+      - --verbose
     ports:
         - published: 50000
           target: 50000
