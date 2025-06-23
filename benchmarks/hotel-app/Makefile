@@ -28,6 +28,8 @@ ROOT = ../../
 
 .PHONY: geo profile rate recommendation reservation user search
 
+ARCH = default
+
 FUNCTIONS = geo profile rate recommendation reservation user search
 ALL_IMAGES = $(addsuffix -image, $(FUNCTIONS))
 
@@ -43,6 +45,7 @@ all-image: $(ALL_IMAGES)
 	docker build \
 	--tag vhiveease/hotel-app-$(func):latest \
 	--build-arg SERVICE=$(func) \
+	--build-arg ARCH=$(ARCH)
 	-f Dockerfile \
 	$(ROOT)
 
