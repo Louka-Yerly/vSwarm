@@ -40,6 +40,14 @@ fibonacci-python-image:  Dockerfile python/server.py
 	$(ROOT)
 
 
+fibonacci-python-image-riscv:  Dockerfile.riscv python/server.py
+	DOCKER_BUILDKIT=1 docker build \
+	--tag $(DOCKER_HUB_ACCOUNT)/fibonacci-python:latest \
+	--target fibonacciPython \
+	-f ./Dockerfile.riscv \
+	$(ROOT)
+
+
 fibonacci-nodejs-image: Dockerfile nodejs/server.js
 	DOCKER_BUILDKIT=1 docker build \
 	--tag $(DOCKER_HUB_ACCOUNT)/fibonacci-nodejs:latest \
