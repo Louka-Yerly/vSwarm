@@ -195,6 +195,7 @@ func SayHello(address, workflowID string) {
 	if err != nil {
 		log.Warnf("Failed to invoke %v, err=%v", address, err)
 	} else {
+		log.Debug(response.Message)
 		if *funcDurEnableFlag {
 			log.Debugf("Inside if\n")
 			words := strings.Fields(response.Message)
