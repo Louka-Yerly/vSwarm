@@ -4,6 +4,8 @@ go 1.21
 
 replace github.com/vhive-serverless/vSwarm/utils/tracing/go => ../../utils/tracing/go
 
+replace github.com/vhive-serverless/vSwarm-proto => ./vSwarm-proto
+
 require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/vhive-serverless/vSwarm-proto v0.5.7
