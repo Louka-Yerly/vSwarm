@@ -48,6 +48,13 @@ aes-python-image: docker/Dockerfile python/server.py
 	-f docker/Dockerfile \
 	$(ROOT) --load
 
+aes-python-image-riscv: docker/Dockerfile.riscv python/server.py
+	DOCKER_BUILDKIT=1 docker buildx build \
+	--tag vhiveease/aes-python:latest \
+	--target aesPython \
+	-f docker/Dockerfile.riscv \
+	$(ROOT) --load
+
 
 aes-nodejs-image: docker/Dockerfile nodejs/server.js
 	DOCKER_BUILDKIT=1 docker buildx build --progress=plain \
