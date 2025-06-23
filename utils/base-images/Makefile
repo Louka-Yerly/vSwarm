@@ -23,17 +23,26 @@
 
 .PHONY: all
 
-IMAGES 	  ?= golang-builder golang python-slim node-slim mongodb memcached
+ARCH := default
 
+DOCKERFILE := Dockerfile
+IMAGES     ?= golang-builder golang node-slim python-slim mongodb memcached
+
+ifeq ($(ARCH), riscv)
+	DOCKERFILE := Dockerfile.riscv
+	IMAGES     ?= golang-builder golang node-slim python-slim postgres memcached
+endif
 
 #### Build the base images
-%: Dockerfile
+%:
 	DOCKER_BUILDKIT=1 docker build \
 	--tag docker.io/vhiveease/$@:latest \
 	--target $@ \
-	-f Dockerfile \
+	-f $(DOCKERFILE) \
 	.
 
+riscv-%:
+	$(MAKE) $* ARCH=riscv
 
 all: $(IMAGES)
 
