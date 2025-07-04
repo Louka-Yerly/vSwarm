@@ -60,6 +60,7 @@ var (
 	grpcTimeout time.Duration
 	withTracing *bool
 	workflowIDs map[*endpoint.Endpoint]string
+	once *bool
 )
 
 func main() {
@@ -74,6 +75,7 @@ func main() {
 	zipkin := flag.String("zipkin", "http://localhost:9411/api/v2/spans", "zipkin url")
 	debug := flag.Bool("dbg", false, "Enable debug logging")
 	grpcTimeout = time.Duration(*flag.Int("grpcTimeout", 30, "Timeout in seconds for gRPC requests")) * time.Second
+	once = flag.Bool("once", false, "Execute the function only one time")
 
 	flag.Parse()
 
@@ -109,6 +111,12 @@ func main() {
 		defer shutdown()
 	}
 
+	if *once {
+		ep := endpoints[0]
+		invokeServingFunction(ep)
+		return
+	} 
+	
 	realRPS := runExperiment(endpoints, *runDuration, *rps)
 
 	writeLatencies(realRPS, *latencyOutputFile)
