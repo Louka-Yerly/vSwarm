@@ -113,9 +113,12 @@ func main() {
 
 	if *once {
 		ep := endpoints[0]
-		invokeServingFunction(ep)
-		return
-	} 
+		err := invokeServingFunction(ep)
+		if err == nil {
+			os.Exit(0)
+		}
+		os.Exit(1)
+	}
 	
 	realRPS := runExperiment(endpoints, *runDuration, *rps)
 
@@ -175,7 +178,7 @@ loop:
 	return
 }
 
-func SayHello(address, workflowID string) {
+func SayHello(address, workflowID string) error {
 	dialOptions := make([]grpc.DialOption, 0)
 	dialOptions = append(dialOptions, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if *withTracing {
@@ -202,6 +205,7 @@ func SayHello(address, workflowID string) {
 	})
 	if err != nil {
 		log.Warnf("Failed to invoke %v, err=%v", address, err)
+		return fmt.Errorf("err=%v", err)
 	} else {
 		log.Debug(response.Message)
 		if *funcDurEnableFlag {
@@ -217,6 +221,8 @@ func SayHello(address, workflowID string) {
 		}
 		atomic.AddInt64(&completed, 1)
 	}
+
+	return nil
 }
 
 func invokeEventingFunction(endpoint *endpoint.Endpoint) {
@@ -226,13 +232,13 @@ func invokeEventingFunction(endpoint *endpoint.Endpoint) {
 	SayHello(address, workflowIDs[endpoint])
 }
 
-func invokeServingFunction(endpoint *endpoint.Endpoint) {
+func invokeServingFunction(endpoint *endpoint.Endpoint) error {
 	defer getDuration(startMeasurement(endpoint.Hostname)) // measure entire invocation time
 
 	address := fmt.Sprintf("%s:%d", endpoint.Hostname, *portFlag)
 	log.Debug("Invoking: ", address)
 
-	SayHello(address, workflowIDs[endpoint])
+	return SayHello(address, workflowIDs[endpoint])
 }
 
 // LatencySlice is a thread-safe slice to hold a slice of latency measurements.
