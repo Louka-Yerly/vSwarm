@@ -27,6 +27,7 @@ services:
   rate:
     image: vhiveease/hotel-app-rate:latest
     container_name: rate
+    cpuset: "1"
     entrypoint:
       - /app/server
       - --url=0.0.0.0
@@ -45,10 +46,12 @@ services:
   database:
     image: vhiveease/mongodb
     container_name: rate-db
+    cpuset: "2"
   ## Memcached ##
   memcached:
     image: vhiveease/memcached
     container_name: 'rate-mmc'
+    cpuset: "2"
     environment:
       - MEMCACHED_CACHE_SIZE=128
       - MEMCACHED_THREADS=2

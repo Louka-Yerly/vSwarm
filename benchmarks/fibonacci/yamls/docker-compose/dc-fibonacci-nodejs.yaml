@@ -25,6 +25,7 @@ services:
   fibonacci-nodejs:
     image: vhiveease/fibonacci-nodejs:latest
     container_name: fibonacci-nodejs
+    cpuset: "1"
     entrypoint:
       - node
       - server.js

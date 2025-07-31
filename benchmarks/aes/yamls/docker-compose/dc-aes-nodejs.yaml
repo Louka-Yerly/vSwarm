@@ -25,6 +25,7 @@ services:
   aes-nodejs:
     image: vhiveease/aes-nodejs:latest
     container_name: aes-nodejs
+    cpuset: "1"
     entrypoint:
       - node
       - server.js

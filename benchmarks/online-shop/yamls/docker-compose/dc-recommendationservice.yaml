@@ -4,6 +4,7 @@ services:
   recommendationservice:
     image: vhiveease/onlineshop-recommendationservice:latest
     container_name: 'recommendationservice'
+    cpuset: "1"
     build:
       context: ./../../recommendationservice/
       dockerfile: ./Dockerfile
@@ -21,6 +22,7 @@ services:
   productcatalogservice:
     image: vhiveease/onlineshop-productcatalogservice:latest
     container_name: 'productcatalogservice'
+    cpuset: "2"
     build:
       context: ./../../productcatalogservice/
       dockerfile: ./Dockerfile

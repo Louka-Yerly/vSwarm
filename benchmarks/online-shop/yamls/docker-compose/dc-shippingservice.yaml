@@ -4,6 +4,7 @@ services:
   shippingservice:
     image: vhiveease/onlineshop-shippingservice:latest
     container_name: 'shippingservice'
+    cpuset: "1"
     build:
       context: ./../../shippingservice/
       dockerfile: ./Dockerfile

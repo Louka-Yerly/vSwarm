@@ -25,6 +25,7 @@ services:
   aes-python:
     image: vhiveease/aes-python:latest
     container_name: aes-python
+    cpuset: "1"
     entrypoint:
       - python
       - /app/server.py

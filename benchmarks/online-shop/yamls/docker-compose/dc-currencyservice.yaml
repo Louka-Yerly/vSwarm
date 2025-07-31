@@ -4,6 +4,7 @@ services:
   currencyservice:
     image: vhiveease/onlineshop-currencyservice:latest
     container_name: 'currencyservice'
+    cpuset: "1"
     build:
       context: ./../../currencyservice/
       dockerfile: ./Dockerfile

@@ -4,6 +4,7 @@ services:
   productcatalogservice:
     image: vhiveease/onlineshop-productcatalogservice:latest
     container_name: 'productcatalogservice'
+    cpuset: "1"
     build:
       context: ./../../productcatalogservice/
       dockerfile: ./Dockerfile

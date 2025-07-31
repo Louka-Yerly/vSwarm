@@ -25,6 +25,7 @@ services:
   auth-nodejs:
     image: vhiveease/auth-nodejs:latest
     container_name: auth-nodejs
+    cpuset: "1"
     entrypoint:
       - node
       - server.js

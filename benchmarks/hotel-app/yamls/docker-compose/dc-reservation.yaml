@@ -27,6 +27,7 @@ services:
   reservation:
     image: vhiveease/hotel-app-reservation:latest
     container_name: reservation
+    cpuset: "1"
     entrypoint:
       - /app/server
       - --url=0.0.0.0
@@ -44,10 +45,12 @@ services:
   database:
     image: vhiveease/mongodb
     container_name: reservation-db
+    cpuset: "2"
   ## Memcached ##
   memcached:
     image: vhiveease/memcached
     container_name: 'reservation-mmc'
+    cpuset: "2"
     environment:
       - MEMCACHED_CACHE_SIZE=128
       - MEMCACHED_THREADS=2

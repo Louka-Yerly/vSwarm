@@ -25,6 +25,7 @@ services:
   fibonacci-python:
     image: vhiveease/fibonacci-python:latest
     container_name: fibonacci-python
+    cpuset: "1"
     entrypoint:
       - python
       - /app/server.py

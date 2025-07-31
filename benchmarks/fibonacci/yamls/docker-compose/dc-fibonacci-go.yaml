@@ -25,6 +25,7 @@ services:
   fibonacci-go:
     image: vhiveease/fibonacci-go:latest
     container_name: fibonacci-go
+    cpuset: "1"
     entrypoint:
       - /app/server
       - -addr=0.0.0.0:50051

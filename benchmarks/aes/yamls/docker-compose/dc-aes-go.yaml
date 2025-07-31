@@ -25,6 +25,7 @@ services:
   aes-go:
     image: vhiveease/aes-go:latest
     container_name: aes-go
+    cpuset: "1"
     entrypoint:
       - /app/server
       - --addr=0.0.0.0:50051

@@ -4,6 +4,7 @@ services:
   paymentservice:
     image: vhiveease/onlineshop-paymentservice:latest
     container_name: 'paymentservice'
+    cpuset: "1"
     build:
       context: ./../../paymentservice/
       dockerfile: ./Dockerfile

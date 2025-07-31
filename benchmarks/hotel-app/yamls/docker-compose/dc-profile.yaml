@@ -27,6 +27,7 @@ services:
   profile:
     image: vhiveease/hotel-app-profile:latest
     container_name: profile
+    cpuset: "1"
     entrypoint:
       - /app/server
       - --url=0.0.0.0
@@ -45,10 +46,12 @@ services:
   database:
     image: vhiveease/mongodb
     container_name: profile-db
+    cpuset: "2"
   ## Memcached ##
   memcached:
     image: vhiveease/memcached
     container_name: 'profile-mmc'
+    cpuset: "2"
     environment:
       - MEMCACHED_CACHE_SIZE=128
       - MEMCACHED_THREADS=2

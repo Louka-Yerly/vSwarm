@@ -25,6 +25,7 @@ services:
   auth-python:
     image: vhiveease/auth-python:latest
     container_name: auth-python
+    cpuset: "1"
     entrypoint:
       - python
       - /app/server.py

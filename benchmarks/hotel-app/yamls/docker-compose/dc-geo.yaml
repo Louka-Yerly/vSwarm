@@ -27,6 +27,7 @@ services:
   geo:
     image: vhiveease/hotel-app-geo:latest
     container_name: geo
+    cpuset: "1"
     entrypoint:
       - /app/server
       - --url=0.0.0.0
@@ -43,6 +44,7 @@ services:
   database:
     image: vhiveease/mongodb
     container_name: geo-db
+    cpuset: "2"
 
 
 

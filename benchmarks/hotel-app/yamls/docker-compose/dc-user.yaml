@@ -27,6 +27,7 @@ services:
   user:
     image: vhiveease/hotel-app-user:latest
     container_name: user
+    cpuset: "1"
     entrypoint:
       - /app/server
       - --url=0.0.0.0
@@ -43,6 +44,7 @@ services:
   database:
     image: vhiveease/mongodb
     container_name: user-db
+    cpuset: "2"
 
 
 

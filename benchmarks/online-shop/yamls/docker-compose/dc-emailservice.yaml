@@ -4,6 +4,7 @@ services:
   emailservice:
     image: vhiveease/onlineshop-emailservice:latest
     container_name: 'emailservice'
+    cpuset: "1"
     build:
       context: ./../../emailservice/
       dockerfile: ./Dockerfile
