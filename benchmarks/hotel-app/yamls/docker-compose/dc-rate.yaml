@@ -32,7 +32,7 @@ services:
       - /app/server
       - --url=0.0.0.0
       - --port=8083
-      - --db_addr=database:27017
+      - --db_addr=database:5432
       - --memcached_addr=memcached:11211
     ports:
     - published: 8083
@@ -44,9 +44,13 @@ services:
 
   ## Data base ##
   database:
-    image: vhiveease/mongodb
+    image: vhiveease/postgres
     container_name: rate-db
     cpuset: "2"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=hotel_rate
+
   ## Memcached ##
   memcached:
     image: vhiveease/memcached

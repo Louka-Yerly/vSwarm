@@ -66,15 +66,18 @@ services:
       - /app/server
       - --url=0.0.0.0
       - --port=8084
-      - --db_addr=geo-db:27017
+      - --db_addr=geo-db:5432
     depends_on:
       - geo-db
 
   ## Database ##
   geo-db:
-    image: vhiveease/mongodb
+    image: vhiveease/postgres
     container_name: geo-db
     cpuset: "2"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=hotel_geo
 
 
   ## Dependent rate function ###
@@ -86,7 +89,7 @@ services:
       - /app/server
       - --url=0.0.0.0
       - --port=8085
-      - --db_addr=rate-db:27017
+      - --db_addr=rate-db:5432
       - --memcached_addr=rate-mmc:11211
     depends_on:
       - rate-db
@@ -95,9 +98,13 @@ services:
 
   ## Database ##
   rate-db:
-    image: vhiveease/mongodb
+    image: vhiveease/postgres
     container_name: rate-db
     cpuset: "2"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=hotel_rate
+
   ## Memcached ##
   rate-mmc:
     image: vhiveease/memcached
