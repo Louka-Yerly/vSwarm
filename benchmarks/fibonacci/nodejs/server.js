@@ -53,6 +53,19 @@ function fibonacci(num) {
   return num1.toString();
 }
 
+function fibonacci_int(num) {
+  let num1 = 0;
+  let num2 = 1;
+  let sum = 0;
+  var i = 0;
+  for (i = 0; i < num; i++) {
+    sum = num1 + num2;
+    num1 = num2;
+    num2 = sum;
+  }
+  return num1.toString();
+}
+
 /**
  * Argument parsing
  */
@@ -105,7 +118,7 @@ function sayHello(call, callback) {
   }
 
   var x = parseInt(call.request.name)
-  var y = fibonacci(x)
+  var y = fibonacci_int(x)
   var msg = `fn: Fib: y = fib(x) | x: ${x} y: ${y} | runtime: NodeJS`
 
   if (tracing.IsTracingEnabled()) {
