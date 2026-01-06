@@ -234,8 +234,7 @@ services:
       - --port=8083
       - --db_addr=database_geo:5432
     ports:
-      - published: 8083
-        target: 8083
+      - target: 8083
     depends_on:
       - database_geo
   database_geo:
@@ -270,8 +269,7 @@ services:
       - --db_addr=database_profile:5432
       - --memcached_addr=memcached_profile:11211
     ports:
-      - published: 8083
-        target: 8083
+      - target: 8083
     depends_on:
       - database_profile
       - memcached_profile
@@ -318,8 +316,7 @@ services:
       - --db_addr=database_rate:5432
       - --memcached_addr=memcached_rate:11211
     ports:
-      - published: 8083
-        target: 8083
+      - target: 8083
     depends_on:
       - database_rate
       - memcached_rate
@@ -352,6 +349,8 @@ services:
     ports:
       - published: 50011
         target: 50011
+    depends_on:
+      - rate
 
   recommendation:
     image: vhiveease/hotel-app-recommendation:latest
@@ -363,8 +362,7 @@ services:
       - --port=8083
       - --db_addr=database_recommendation:5432
     ports:
-      - published: 8083
-        target: 8083
+      - target: 8083
     depends_on:
       - database_recommendation
   database_recommendation:
@@ -400,8 +398,7 @@ services:
       - --db_addr=database_reservation:5432
       - --memcached_addr=memcached_reservation:11211
     ports:
-      - published: 8083
-        target: 8083
+      - target: 8083
     depends_on:
       - database_reservation
       - memcached_reservation
@@ -447,8 +444,7 @@ services:
       - --port=8083
       - --db_addr=database_user:5432
     ports:
-      - published: 8083
-        target: 8083
+      - target: 8083
     depends_on:
       - database_user
   database_user:
@@ -502,6 +498,8 @@ services:
     ports:
       - published: 50015
         target: 50015
+    depends_on:
+      - currencyservice
 
   emailservice:
     image: vhiveease/onlineshop-emailservice:latest
@@ -528,6 +526,8 @@ services:
     ports:
       - published: 50016
         target: 50016
+    depends_on:
+      - emailservice
 
   paymentservice:
     image: vhiveease/onlineshop-paymentservice:latest
@@ -556,6 +556,8 @@ services:
     ports:
       - published: 50017
         target: 50017
+    depends_on:
+      - paymentservice
 
   productcatalogservice:
     image: vhiveease/onlineshop-productcatalogservice:latest
@@ -582,6 +584,8 @@ services:
     ports:
       - published: 50018
         target: 50018
+    depends_on:
+      - productcatalogservice
 
   shippingservice:
     image: vhiveease/onlineshop-shippingservice:latest
@@ -607,4 +611,6 @@ services:
     ports:
       - published: 50019
         target: 50019
+    depends_on:
+      - shippingservice
 
